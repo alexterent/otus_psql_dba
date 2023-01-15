@@ -12,6 +12,7 @@ homework1, homework2, homework3, homework4.
 ## Оглавление
 
 [ДЗ_1: Работа с уровнями изоляции транзакции в PostgreSQL](homework/hw1.md)
-[ДЗ_1: Установка и настройка PostgteSQL в контейнере Docker](homework/hw2.md)
+
+[ДЗ_2: Установка и настройка PostgteSQL в контейнере Docker](homework/hw2.md)
 
 
