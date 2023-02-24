@@ -2,6 +2,7 @@
 
 В этой работе проведём установку и настройку PostgteSQL в контейнере Docker
 
+____
 
 ### 1. Установка Docker
 
@@ -80,7 +81,7 @@ REPOSITORY   TAG       IMAGE ID       CREATED      SIZE
 postgres     14        9316bd7ca2d7   4 days ago   376MB
 ```
 
-Для запуска контйнера необходимо написать: 
+Для запуска контейнера необходимо написать: 
 ```shell
 sudo docker container run --name pg-server --network pg-net -e POSTGRES_PASSWORD=postgres -d -p 5432:5432 -v /var/lib/mypostgres:/var/lib/postgresql/data --rm 9316bd7ca2d7
 ```
@@ -88,7 +89,7 @@ sudo docker container run --name pg-server --network pg-net -e POSTGRES_PASSWORD
 `--network` - сеть, в которой будет работать контейнер.
 `-e` - установка переменной окружения.
 `-d` - запускает контейнер в фоновом режиме.
-`-p` - порт, по которому будет просиходить взаимодействие с контейнером. В данном случае внутренний и внешний порты совпадают.
+`-p` - порт, по которому будет происходить взаимодействие с контейнером. В данном случае внутренний и внешний порты совпадают.
 `-v` - создание и привязка вольюма для контейнера, где будут храниться данные PosgreSQL.
 `--rm` - автоматически удаляет контейнер после того, как его выполнение завершится.
 `image_id` - id image, из которого будет создан контейнер. 
@@ -138,7 +139,7 @@ apt install nano
 ```shell
 nano /var/lib/postgresql/data/pg_hba.conf
 ```
-И добавим стрчоку `host all postgres 0.0.0.0/0 scram-sha-256`.
+И добавим строчку `host all postgres 0.0.0.0/0 scram-sha-256`.
 
 Далее на ВМ пробуем подключиться к БД:
 ```shell
@@ -178,14 +179,14 @@ $ sudo docker ps -a
 CONTAINER ID   IMAGE          COMMAND                  CREATED       STATUS    PORTS     NAMES
 ```
 
-Контейр отсутствует.
+Контейнер отсутствует.
 
 Далее запустим новый контейнер (строка ничем не отличается от первого запуска):
 ```shell
 sudo docker container run --name pg-server --network pg-net -e POSTGRES_PASSWORD=postgres -d -p 5432:5432 -v /var/lib/mypostgres:/var/lib/postgresql/data --rm 9316bd7ca2d7
 ```
 
-И убедимся, что это другой контейнер, т.к. новый контейнер будет имять другой `containet_id`:
+И убедимся, что это другой контейнер, т.к. новый контейнер будет иметь другой `containet_id`:
 ```shell
 $ sudo docker ps
 CONTAINER ID   IMAGE          COMMAND                  CREATED          STATUS          PORTS                                       NAMES
@@ -207,4 +208,4 @@ postgres=# select * from persons;
 (2 rows)
 ```
 
-Данные остались преждними, а это значит, что данные были сохранены в docker volume. 
+Данные остались прежними, а это значит, что данные были сохранены в docker volume. 

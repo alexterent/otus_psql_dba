@@ -2,6 +2,7 @@
 
 В этой работе выполним установку PostgreSQL и сравним два уровня изоляции.
 
+____
 
 ### 1. Установка PostgreSQL
 Для установки PostgreSQL на CentOS7 для начала нужно отключить репозитории postgresql от Centos:
@@ -30,7 +31,7 @@ sudo yum install https://download.postgresql.org/pub/repos/yum/reporpms/EL-7-x86
 
 и выполним установку postgresql 14 версии:
 ```shell
-sudo yum install postgresql11-server
+sudo yum install postgresql14-server
 ```
 
 На все запросы импорта GPG ключа отвечаем "yes". 
@@ -50,7 +51,7 @@ sudo systemctl enable postgresql-14
 ```
 
 После этой команды можно будет запускать и останавливать службу при помощи команд:
-```
+```shell
 sudo systemctl start postgresql-14
 sudo systemctl stop postgresql-14
 ```
