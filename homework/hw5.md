@@ -4,8 +4,7 @@
 
 ____
 
-### 1. 
-
+### Подготовка для экспериментов с vacuum и autovacuum 
 
 Создадим новую машину в Яндекс Облаке с параметрами: 
 
@@ -112,6 +111,8 @@ initial connection time = 17.454 ms
 tps = 532.620403 (without initial connection time)
 ```
 
+### Эксперимент №1
+
 Внесём изменения по `autovacuum` в `postgresql.conf`:
 ```
 vacuum_cost_delay = 4   
@@ -163,7 +164,9 @@ initial connection time = 18.867 ms
 tps = 508.635560 (without initial connection time)
 ```
 
-Результат по tps - улучшился, но время выполнения на разных тестах скачет.
+Результат по tps - ухудшился, но время выполнения на разных тестах скачет.
+
+### Эксперимент №2
 
 Попробуем изменить некоторые из параметров и запустить ещё раз. 
 На этот раз изменим следующие параметры:
@@ -240,6 +243,7 @@ tps = 537.594677 (without initial connection time)
 влияют на время, т.е. два запуска на одной и той же конфигурации дали разное среднее tps, 
 так и между разными сериями выполнений.
 
+### Эксперимент №3
 
 Попробуем изменить некоторые из параметров и запустить ещё раз. 
 На этот раз изменим следующие параметры:
@@ -316,32 +320,18 @@ initial connection time = 16.584 ms
 tps = 479.992146 (without initial connection time)
 ```
 
-При таких настройках смогли получить хороший результат, где среднее tps гарантированно меньше, 
+При таких настройках смогли получить результат хуже; среднее tps гарантированно меньше, 
 чем без настроек vacuum и autovacuum.
 
 
-Итоговое изменение настроек:
-
-```
-vacuum_cost_delay = 2    
-vacuum_cost_page_hit = 0  
-vacuum_cost_page_miss = 2  
-vacuum_cost_page_dirty = 40  
-vacuum_cost_limit = 1000  
-
-autovacuum = on 
-autovacuum_max_workers = 4 
-autovacuum_naptime = 1s 
-autovacuum_vacuum_threshold = 50  
-autovacuum_vacuum_insert_threshold = 1000  
-autovacuum_analyze_threshold = 50
-autovacuum_vacuum_scale_factor = 0.02
-autovacuum_vacuum_insert_scale_factor = 0.2 
-autovacuum_analyze_scale_factor = 0.02 
-autovacuum_freeze_max_age = 200000000 
-autovacuum_multixact_freeze_max_age = 400000000
-autovacuum_vacuum_cost_delay = 10ms
-autovacuum_vacuum_cost_limit = -1
-```
+### Выводы 
 
 Основной упор делался на подбор `vacuum_cost_*` значений и время вызова и работы `autovacuum_naptime`.
+При условии, что используется HDD диск, следует делать больше времени между vacuum.
+Большой `vacuum_cost_limit`, огромная разница между `vacuum_cost_page_miss` и `vacuum_cost_page_dirty`
+и частое срабатывание autovacuum существенно занизили работу PostgreSQL в эксперименте №3.
+
+Интересные результаты дал эксперимент №2, где `vacuum_cost_page_miss`=10, 
+т.е. 1/2 от `vacuum_cost_page_dirty`, низким `vacuum_cost_limit` 
+и с увеличенным `autovacuum_max_workers`. Работа такого кластера была практически такой же, 
+как и без включения autovacuum.
