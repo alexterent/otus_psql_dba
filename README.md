@@ -11,15 +11,17 @@ homework1, homework2, homework3, homework4.
 
 ## Оглавление
 
+### Домашние работы
+
 [Д/З_1: Работа с уровнями изоляции транзакции в PostgreSQL](homework/hw1.md)
 
 [Д/З_2: Установка и настройка PostgteSQL в контейнере Docker](homework/hw2.md)
 
 [Д/З_3: Установка и настройка PostgteSQL в контейнере Docker](homework/hw3.md)
 
-[Д/З_4: ](homework/hw4.md)
+[Д/З_4: Работа с базами данных, пользователями и правами](homework/hw4.md)
 
-[Д/З_5: ](homework/hw5.md)
+[Д/З_5: Настройка autovacuum с учетом оптимальной производительности](homework/hw5.md)
 
 [Д/З_6: ](homework/hw6.md)
 
@@ -34,3 +36,7 @@ homework1, homework2, homework3, homework4.
 [Д/З_11: ](homework/hw11.md)
 
 [Д/З_12: ](homework/hw12.md)
+
+### Экзаменационная работа
+
+[](exam/exam.md)
