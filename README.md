@@ -23,7 +23,7 @@ homework1, homework2, homework3, homework4.
 
 [Д/З 5: Настройка autovacuum с учетом оптимальной производительности](homework/hw5.md)
 
-[Д/З 6: ](homework/hw6.md)
+[Д/З 6: Работа с журналами](homework/hw6.md)
 
 [Д/З 7: ](homework/hw7.md)
 
@@ -40,7 +40,3 @@ homework1, homework2, homework3, homework4.
 ### Проектная работа
 
 [Проектная работа](exam/exam_report.md)
-
-[Тестирование](exam/experiments.md)
-
-[Конфигурации БД](exam/configs.md)
