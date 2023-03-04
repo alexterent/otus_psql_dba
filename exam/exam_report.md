@@ -1389,7 +1389,8 @@ full_page_writes = off
 | testdb7 | latency = - 125.872 ms <br/> tps = + 0.017285 | latency = - 158.103 ms <br/> tps = + 0.004265 |
 
 
-
+Практически во всех тестах есть увеличение пропускной способности. Ожидалось, что это значение будет больше 
+между SSD и HDD дисками, но, вероятно, иные параметры влияют на более существенное ускорение, например, autovacuum. 
 
 
 ### Оценка времени между 9 и 13 экспериментами
@@ -1434,12 +1435,12 @@ full_page_writes = off
 | testdb7 | latency = + 406.518 ms <br/> tps = - 0.082738  | latency = + 3368.035 ms <br/> tps = - 0.068374 |
 
 
-
+Большое увеличение скорости для tps и уменьшение для latency по сравнению 
+с дефолтными настрйоками PostgreSQL на ВМ c SSD дисками.
 
 
 
 ### Оценка времени между 1 и 13 экспериментами
-
 
 
 -M = simple
@@ -1481,7 +1482,9 @@ full_page_writes = off
 | testdb7 | latency = - 53.094 ms <br/> tps = - 0.008557   | latency = + 541.414 ms <br/> tps = + 0.009874  |
 
 
-
+Интересно, что в тесте 9-13, что в тесте 1-13, БД 6 (unlogged tables) 
+показывает худший результат на значение `latency` при c=200.
+В целом, результаты намного лучше, чем на ВМ с HDD диском и дефолтными настройками.
 
 
 ### Эксперимент №14
@@ -1575,9 +1578,49 @@ enable_bitmapscan = off
 
 <details>
 <summary>-M = simple</summary>
+
+|         | c = 5                                       | c = 50                                      | c = 200                                      |
+|---------|---------------------------------------------|---------------------------------------------|----------------------------------------------|
+| testdb1 | latency = 8.299 ms <br/> tps = 602.289165   | latency = 80.540 ms <br/> tps = 619.841188  | latency = 403.167 ms <br/> tps = 491.170023  |
+| testdb2 | latency = 5.348 ms <br/> tps = 934.060190   | latency = 19.028 ms <br/> tps = 2623.077394 | latency = 73.764 ms <br/> tps = 2703.027058  |
+| testdb3 | latency = 5.162 ms <br/> tps = 967.857221   | latency = 20.262 ms <br/> tps = 2463.071991 | latency = 88.280 ms <br/> tps = 2256.967736  |
+| testdb4 | latency = 5.872 ms <br/> tps = 850.701999   | latency = 8.309 ms <br/> tps = 5989.098257  | latency = 163.034 ms <br/> tps = 1222.523628 |
+| testdb5 | latency = 10.790 ms <br/> tps = 463.164492  | latency = 50.873 ms <br/> tps = 981.624823  | latency = 108.203 ms <br/> tps = 1842.851874 |
+| testdb6 | latency = 0.489 ms <br/> tps = 10171.098114 | latency = 3.405 ms <br/> tps = 14552.900857 | latency = 16.356 ms <br/> tps = 12096.104237 |
+| testdb7 | latency = 1.254 ms <br/> tps = 3984.307625  | latency = 10.474 ms <br/> tps = 4755.873305 | latency = 49.541 ms <br/> tps = 4011.014513  |
+
 </details>
 
 
+<details>
+<summary>-M = simple</summary>
+
+|         | c = 5                                      | c = 50                                      | c = 200                                      |
+|---------|--------------------------------------------|---------------------------------------------|----------------------------------------------|
+| testdb1 | latency = 8.183 ms <br/> tps = 610.820640  | latency = 83.687 ms <br/> tps = 596.618889  | latency = 427.511 ms <br/> tps = 464.916261  |
+| testdb2 | latency = 4.053 ms <br/> tps = 1232.465280 | latency = 24.053 ms <br/> tps = 2075.555529 | latency = 110.376 ms <br/> tps = 1802.608818 |
+| testdb3 | latency = 4.931 ms <br/> tps = 1013.188277 | latency = 21.278 ms <br/> tps = 2347.112236 | latency = 89.660 ms <br/> tps = 2224.092728  |
+| testdb4 | latency = 5.595 ms <br/> tps = 892.470203  | latency = 7.479 ms <br/> tps = 6649.058943  | latency = 131.669 ms <br/> tps = 1513.838684 |
+| testdb5 | latency = 11.988 ms <br/> tps = 416.900846 | latency = 36.609 ms <br/> tps = 1363.852599 | latency = 80.519 ms <br/> tps = 2474.651698  |
+| testdb6 | latency = 0.587 ms <br/> tps = 8496.962389 | latency = 4.087 ms <br/> tps = 12128.036048 | latency = 19.284 ms <br/> tps = 10279.481420 |
+| testdb7 | latency = 1.428 ms <br/> tps = 3498.842737 | latency = 11.551 ms <br/> tps = 4314.004270 | latency = 52.950 ms <br/> tps = 3754.508124  |
+
+</details>
+
+<details>
+<summary>-M = simple</summary>
+
+|         | c = 5                                        | c = 50                                      |
+|---------|----------------------------------------------|---------------------------------------------|
+| testdb1 | latency = 32.909 ms <br/> tps = 151.867706   | latency = 282.624 ms <br/> tps = 176.687844 |
+| testdb2 | latency = 493.899 ms <br/> tps = 10.063681   | latency = 4628.749 ms <br/> tps = 10.569109 |
+| testdb3 | latency = 522.913 ms <br/> tps = 9.519235    | latency = 5074.057 ms <br/> tps = 9.592912  |
+| testdb4 | latency = 145283.984 ms <br/> tps = 0.034352 | latency = 48602.537 ms <br/> tps = 1.020335 |
+| testdb5 | latency = 165290.278 ms <br/> tps = 0.030236 | latency = 52491.122 ms <br/> tps = 0.939392 |
+| testdb6 | latency = 5502.653 ms <br/> tps = 0.868385   | latency = 49736.276 ms <br/> tps = 0.994216 |
+| testdb7 | latency = 5425.289 ms <br/> tps = 0.882122   | latency = 54748.497 ms <br/> tps = 0.899997 |
+
+</details>
 
 
 Полный отчет тестов представлен в файле [experiment 15](/exam/experiments/e_15.md).
@@ -1624,29 +1667,95 @@ enable_bitmapscan = off
 | testdb7 | latency = - 552.701 ms <br/> tps = + 0.094566    | latency = - 8047.105 ms <br/> tps = + 0.162938  |
 
 
-
+Вывод: отключение настроек по анализу плана запроса значительно ухудшило пропускную способность на HDD диске.
 
 
 ### Оценка времени между 10 и 15 экспериментами
 
 -M = simple
 
+|         | c = 5                                          | c = 50                                         | c = 200                                          |
+|---------|------------------------------------------------|------------------------------------------------|--------------------------------------------------|
+| testdb1 | latency = + 0.873 ms <br/> tps = - 70.885759   | latency = - 0.497 ms <br/> tps = + 3.609525    | latency = - 12.135 ms <br/> tps = + 12.84712     |
+| testdb2 | latency = - 0.264 ms <br/> tps = + 43.787247   | latency = - 0.964 ms <br/> tps = + 125.791708  | latency = - 9.669 ms <br/> tps = + 313.641819    |
+| testdb3 | latency = + 0.104 ms <br/> tps = - 19.782367   | latency = - 3.25 ms <br/> tps = + 342.880673   | latency = + 12.429 ms <br/> tps = - 371.362882   |
+| testdb4 | latency = - 1.145 ms <br/> tps = + 138.898321  | latency = - 71.31 ms <br/> tps = + 5361.689264 | latency = - 29.962 ms <br/> tps = + 188.461279   |
+| testdb5 | latency = + 3.008 ms <br/> tps = - 178.761099  | latency = - 25.746 ms <br/> tps = + 330.396672 | latency = - 336.064 ms <br/> tps = + 1394.887074 |
+| testdb6 | latency = + 0.039 ms <br/> tps = - 898.297797  | latency = + 0.202 ms <br/> tps = - 914.412917  | latency = + 0.851 ms <br/> tps = - 677.453452    |
+| testdb7 | latency = + 0.757 ms <br/> tps = - 6025.882735 | latency = + 6.902 ms <br/> tps = - 9123.373516 | latency = + 32.484 ms <br/> tps = - 7609.884216  |
+
+
 -M = extended
+
+|         | c = 5                                          | c = 50                                          | c = 200                                          |
+|---------|------------------------------------------------|-------------------------------------------------|--------------------------------------------------|
+| testdb1 | latency = + 0.988 ms <br/> tps = - 83.953801   | latency = - 4.238 ms <br/> tps = + 28.65482     | latency = - 17.557 ms <br/> tps = + 19.462584    |
+| testdb2 | latency = - 0.127 ms <br/> tps = + 37.481538   | latency = + 5.18 ms <br/> tps = - 569.564388    | latency = + 30.666 ms <br/> tps = - 699.519536   |
+| testdb3 | latency = + 0.073 ms <br/> tps = - 15.243994   | latency = + 1.822 ms <br/> tps = - 219.067396   | latency = + 12.41 ms <br/> tps = - 355.899722    |
+| testdb4 | latency = - 1.29 ms <br/> tps = + 166.865611   | latency = - 60.871 ms <br/> tps = + 5918.348859 | latency = - 29.413 ms <br/> tps = + 276.415732   |
+| testdb5 | latency = + 0.955 ms <br/> tps = - 36.029204   | latency = - 62.924 ms <br/> tps = + 862.324405  | latency = - 233.467 ms <br/> tps = + 1840.054585 |
+| testdb6 | latency = + 0.059 ms <br/> tps = - 930.770362  | latency = + 0.284 ms <br/> tps = - 909.169691   | latency = + 0.99 ms <br/> tps = - 561.171431     |
+| testdb7 | latency = + 0.849 ms <br/> tps = - 5109.940199 | latency = + 7.326 ms <br/> tps = - 7428.893195  | latency = + 32.672 ms <br/> tps = - 6023.864326  |
+
 
 -f custom_select.sql
 
+|         | c = 5                                            | c = 50                                         |
+|---------|--------------------------------------------------|------------------------------------------------|
+| testdb1 | latency = - 19.997 ms <br/> tps = + 57.40475     | latency = - 195.576 ms <br/> tps = + 72.414188 |
+| testdb2 | latency = + 1.052 ms <br/> tps = - 0.037027      | latency = + 196.586 ms <br/> tps = - 0.384485  |
+| testdb3 | latency = - 9.39 ms <br/> tps = + 0.15773        | latency = + 315.879 ms <br/> tps = - 0.692758  |
+| testdb4 | latency = + 137718.373 ms <br/> tps = - 0.59641  | latency = + 3169.854 ms <br/> tps = - 0.053452 |
+| testdb5 | latency = + 157015.002 ms <br/> tps = - 0.560128 | latency = + 3288.469 ms <br/> tps = - 0.054329 |
+| testdb6 | latency = + 471.38 ms <br/> tps = - 0.104911     | latency = + 2643.239 ms <br/> tps = - 0.041622 |
+| testdb7 | latency = + 27.969 ms <br/> tps = - 0.013244     | latency = + 3370.01 ms <br/> tps = - 0.043043  |
+
+Для небольших таблиц или БД с партициями наблюдается даже прирост по скорости. 
+Для других БД значительно ухудшается для диска SSD.
 
 
 ### Оценка времени между 14 и 15 экспериментами
 
 -M = simple
 
+|         | c = 5                                            | c = 50                                           | c = 200                                         |
+|---------|--------------------------------------------------|--------------------------------------------------|-------------------------------------------------|
+| testdb1 | latency = - 41.567 ms <br/> tps = + 502.226937   | latency = - 1804.43 ms <br/> tps = + 595.368503  | latency = - 5949.74 ms <br/> tps = + 462.390684 |
+| testdb2 | latency = - 0.209 ms <br/> tps = + 34.864842     | latency = - 0.516 ms <br/> tps = + 68.247406     | latency = - 46.808 ms <br/> tps = + 1051.280041 |
+| testdb3 | latency = - 8.222 ms <br/> tps = + 594.540301    | latency = - 12.975 ms <br/> tps = + 961.601444   | latency = - 37.238 ms <br/> tps = + 670.407627  |
+| testdb4 | latency = - 44.808 ms <br/> tps = + 752.05484    | latency = - 8.924 ms <br/> tps = + 3094.347901   | latency = + 84.965 ms <br/> tps = - 1330.371979 |
+| testdb5 | latency = - 55.63 ms <br/> tps = + 387.939191    | latency = - 1308.644 ms <br/> tps = + 946.547071 | latency = + 54.967 ms <br/> tps = - 1897.519794 |
+| testdb6 | latency = - 57.981 ms <br/> tps = + 10085.642156 | latency = - 25.036 ms <br/> tps = + 12796.645281 | latency = - 5.9 ms <br/> tps = + 3166.685663    |
+| testdb7 | latency = - 14.988 ms <br/> tps = + 3676.6599    | latency = + 1.642 ms <br/> tps = - 883.972476    | latency = + 4.881 ms <br/> tps = - 431.835646   |
+
+
 -M = extended
+
+|         | c = 5                                           | c = 50                                           | c = 200                                         |
+|---------|-------------------------------------------------|--------------------------------------------------|-------------------------------------------------|
+| testdb1 | latency = - 246.957 ms <br/> tps = + 591.257585 | latency = - 939.846 ms <br/> tps = + 548.945935  | latency = - 45.545 ms <br/> tps = + 47.238031   |
+| testdb2 | latency = - 0.145 ms <br/> tps = + 42.483846    | latency = + 5.284 ms <br/> tps = - 582.699248    | latency = - 24.807 ms <br/> tps = + 329.115648  |
+| testdb3 | latency = - 3.358 ms <br/> tps = + 410.316095   | latency = - 16.084 ms <br/> tps = + 1010.559204  | latency = - 81.604 ms <br/> tps = + 1061.182294 |
+| testdb4 | latency = - 42.979 ms <br/> tps = + 789.572377  | latency = - 4.758 ms <br/> tps = + 2575.291001   | latency = + 45.413 ms <br/> tps = - 797.746047  |
+| testdb5 | latency = - 50.498 ms <br/> tps = + 336.945043  | latency = - 170.565 ms <br/> tps = + 1122.664601 | latency = + 23.4 ms <br/> tps = - 1011.677988   |
+| testdb6 | latency = - 61.369 ms <br/> tps = + 8416.349644 | latency = - 2.618 ms <br/> tps = + 4704.663491   | latency = - 0.988 ms <br/> tps = + 480.15043    |
+| testdb7 | latency = - 0.661 ms <br/> tps = + 1106.475349  | latency = + 1.594 ms <br/> tps = - 690.636312    | latency = + 5.817 ms <br/> tps = - 466.328848   |
+
 
 -f custom_select.sql
 
+|         | c = 5                                            | c = 50                                         |
+|---------|--------------------------------------------------|------------------------------------------------|
+| testdb1 | latency = + 4.846 ms <br/> tps = - 26.219844     | latency = + 24.635 ms <br/> tps = - 16.828133  |
+| testdb2 | latency = + 51.025 ms <br/> tps = - 1.164219     | latency = + 420.725 ms <br/> tps = - 1.072211  |
+| testdb3 | latency = + 48.661 ms <br/> tps = - 0.997295     | latency = + 384.403 ms <br/> tps = - 0.775569  |
+| testdb4 | latency = - 15088.69 ms <br/> tps = + 0.003221   | latency = + 5296.72 ms <br/> tps = - 0.129422  |
+| testdb5 | latency = - 10086.678 ms <br/> tps = + 0.001727  | latency = + 6146.282 ms <br/> tps = - 0.121735 |
+| testdb6 | latency = - 232203.982 ms <br/> tps = + 0.847365 | latency = + 5197.883 ms <br/> tps = - 0.116811 |
+| testdb7 | latency = + 166.859 ms <br/> tps = - 0.03153     | latency = + 7129.133 ms <br/> tps = - 0.136237 |
 
-
+В целом результаты лучше только у unlogged таблиц БД 6, сотальные показали результаты хуже 
+или менее ожидаемые по приросту между SSD и HDD.
 
 
 ## Выводы
@@ -1666,7 +1775,9 @@ enable_bitmapscan = off
 чем у HDD, а это важно для БД.
 6. SSD диск уменьшает значение `latency`.
 7. Лучше всего SSD диск проявляет себя на больших данных (s=100) и большом кол-ве клиентов (c=200), чем HDD диск.
-8. 
-
-
+8. В кейсах, где выигрывали партиционированные БД может быть закономерным, если маленькие БД получали выигрыш по скорости. 
+9. В сравнениях между тестами 9-13, что в тесте 1-13, БД 6 (unlogged tables) показывает худший результат на значение `latency` при c=200.
+10. Несмотря на то, что дефолтные настрйоки PostgreSQL больше заточены для HDD, 
+ВМ с SSD диском даже на таких настройках показала лучше результаты.
+11. Не рекомендуется отключать настройки по построению плана для больших таблиц и/или большого числа клиентов.
 

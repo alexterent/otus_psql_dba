@@ -100,5 +100,5 @@ if __name__ == "__main__":
     path15 = './experiments/e_15.md'
 
 
-    # print_md_tables_with_log_result(path13)
-    print_md_tables_with_difference_in_log_result(get_result_table(path1), get_result_table(path13))
+    # print_md_tables_with_log_result(path15)
+    print_md_tables_with_difference_in_log_result(get_result_table(path14), get_result_table(path15))
