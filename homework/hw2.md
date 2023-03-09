@@ -113,7 +113,7 @@ insert into persons(first_name, second_name) values('ivan', 'ivanov');
 insert into persons(first_name, second_name) values('petr', 'petrov');
 ```
 
-Проверим, что та блица создалась:
+Проверим, что таблица создалась:
 ```postgresql
 postgres# select * from persons;
  id | first_name | second_name 
