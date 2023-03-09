@@ -13,30 +13,30 @@ homework1, homework2, homework3, homework4.
 
 ### Домашние работы
 
-[Д/З 1: Работа с уровнями изоляции транзакции в PostgreSQL](homework/hw1.md)
+[Д/З 1: Работа с уровнями изоляции транзакции в PostgreSQL](/homework/hw1.md)
 
-[Д/З 2: Установка и настройка PostgteSQL в контейнере Docker](homework/hw2.md)
+[Д/З 2: Установка и настройка PostgteSQL в контейнере Docker](/homework/hw2.md)
 
-[Д/З 3: Установка и настройка PostgteSQL в контейнере Docker](homework/hw3.md)
+[Д/З 3: Установка и настройка PostgteSQL в контейнере Docker](/homework/hw3.md)
 
-[Д/З 4: Работа с базами данных, пользователями и правами](homework/hw4.md)
+[Д/З 4: Работа с базами данных, пользователями и правами](/homework/hw4.md)
 
-[Д/З 5: Настройка autovacuum с учетом оптимальной производительности](homework/hw5.md)
+[Д/З 5: Настройка autovacuum с учетом оптимальной производительности](/homework/hw5.md)
 
-[Д/З 6: Работа с журналами](homework/hw6.md)
+[Д/З 6: Работа с журналами](/homework/hw6.md)
 
-[Д/З 7: ](homework/hw7.md)
+[Д/З 7: ](/homework/hw7.md)
 
-[Д/З 8: Нагрузочное тестирование и тюнинг PostgreSQL](homework/hw8.md)
+[Д/З 8: Нагрузочное тестирование и тюнинг PostgreSQL](/homework/hw8.md)
 
-[Д/З 9: ](homework/hw9.md)
+[Д/З 9: ](/homework/hw9.md)
 
-[Д/З 10: ](homework/hw10.md)
+[Д/З 10: ](/homework/hw10.md)
 
-[Д/З 11: ](homework/hw11.md)
+[Д/З 11: ](/homework/hw11.md)
 
-[Д/З 12: ](homework/hw12.md)
+[Д/З 12: ](/homework/hw12.md)
 
 ### Проектная работа
 
-[Проектная работа](exam/exam_report.md)
+[Проектная работа](/exam/exam_report.md)
