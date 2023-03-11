@@ -24,7 +24,7 @@ Homework for OTUS PostgreSQL DBA
 
 [Д/З 6: Работа с журналами](/homework/hw6.md)
 
-[Д/З 7: ](/homework/hw7.md)
+[Д/З 7: Механизм блокировок](/homework/hw7.md)
 
 [Д/З 8: Нагрузочное тестирование и тюнинг PostgreSQL](/homework/hw8.md)
 
@@ -32,7 +32,7 @@ Homework for OTUS PostgreSQL DBA
 
 [Д/З 10: Работа с индексами, join'ами, статистикой](/homework/hw10.md)
 
-[Д/З 11: ](/homework/hw11.md)
+[Д/З 11: Секционирование таблицы](/homework/hw11.md)
 
 [Д/З 12: ](/homework/hw12.md)
 
